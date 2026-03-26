@@ -1,13 +1,4 @@
---[[
-    ███████╗███████╗██████╗  ██████╗ ██╗   ██╗██╗
-    ╚══███╔╝██╔════╝██╔══██╗██╔═══██╗██║   ██║██║
-      ███╔╝ █████╗  ██████╔╝██║   ██║██║   ██║██║
-     ███╔╝  ██╔══╝  ██╔══██╗██║   ██║██║   ██║██║
-    ███████╗███████╗██║  ██║╚██████╔╝╚██████╔╝██║
-    ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝
-    ZeroUI v1.2 • Dark Solid • Mini Box • FPS
-]]
-
+--CopyRight ©️ 
 local ZeroUI = {}
 ZeroUI.Flags = {}
 ZeroUI.Version = "1.2.0"
@@ -25,12 +16,7 @@ local Mobile = UIS.TouchEnabled and not UIS.KeyboardEnabled
 local VP = Cam.ViewportSize
 Cam:GetPropertyChangedSignal("ViewportSize"):Connect(function() VP = Cam.ViewportSize end)
 
--- Hub image
-local HUB_IMAGE = "https://i.ibb.co/k2WG4ctf/image.png" -- your image
-local HUB_ASSET = "rbxassetid://0"
-
--- Try to get roblox asset from url (fallback handled)
-local hubImageId = HUB_IMAGE
+local hubImageId = "https://i.ibb.co/k2WG4ctf/image.png"
 
 local S = {}
 local function upS()
@@ -51,7 +37,6 @@ local function upS()
 end
 upS()
 
--- ═══════ DARK SOLID THEME ═══════
 local T = {
     WinBG = Color3.fromRGB(12,14,24), WinT = 0.04,
     SideBG = Color3.fromRGB(8,10,20), SideT = 0.02,
@@ -91,24 +76,30 @@ local T = {
     BoxBor = Color3.fromRGB(50,70,150),
 }
 
--- ═══════ UTILS ═══════
 local function tw(o,p,d,s,r)
     local t=TweenService:Create(o,TweenInfo.new(d or 0.22,s or Enum.EasingStyle.Quart,r or Enum.EasingDirection.Out),p)
     t:Play() return t
 end
-local function cor(p,r) local c=Instance.new("UICorner") c.CornerRadius=UDim.new(0,r or S.Cor) c.Parent=p return c end
+
+local function cor(p,r)
+    local c=Instance.new("UICorner") c.CornerRadius=UDim.new(0,r or S.Cor) c.Parent=p return c
+end
+
 local function stk(p,c,th,tr)
     local s=Instance.new("UIStroke") s.Color=c or T.Bor s.Thickness=th or 1 s.Transparency=tr or T.BorT
     s.ApplyStrokeMode=Enum.ApplyStrokeMode.Border s.Parent=p return s
 end
+
 local function ll(p,pd)
     local l=Instance.new("UIListLayout") l.SortOrder=Enum.SortOrder.LayoutOrder l.Padding=UDim.new(0,pd or S.Pad)
     l.HorizontalAlignment=Enum.HorizontalAlignment.Center l.Parent=p return l
 end
+
 local function ac(sf,ly)
     local function u() sf.CanvasSize=UDim2.new(0,0,0,ly.AbsoluteContentSize.Y+16) end
     ly:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(u) u()
 end
+
 local function rip(p,x,y)
     local c=Instance.new("Frame") c.BackgroundColor3=T.Acc c.BackgroundTransparency=0.6
     c.Size=UDim2.fromOffset(0,0) c.Position=UDim2.fromOffset(x,y) c.AnchorPoint=Vector2.new(0.5,0.5)
@@ -117,6 +108,7 @@ local function rip(p,x,y)
     tw(c,{Size=UDim2.fromOffset(m,m),BackgroundTransparency=1},0.45,Enum.EasingStyle.Quad)
     task.delay(0.5,function() if c then c:Destroy() end end)
 end
+
 local function drag(tb,fr)
     local d,ds,sp=false,nil,nil
     tb.InputBegan:Connect(function(i)
@@ -132,10 +124,10 @@ local function drag(tb,fr)
         end
     end)
 end
+
 local function rf(n) local o,d=pcall(function() return readfile(n) end) return o and d or nil end
 local function wf(n,d) pcall(function() writefile(n,d) end) end
 
--- ═══════ FPS MODULE ═══════
 local FPS={}
 function FPS:Create(gui)
     local vis,cur=false,60
@@ -195,7 +187,6 @@ function FPS:Create(gui)
     return A
 end
 
--- ═══════ KEY SYSTEM ═══════
 local function showKey(cfg,onOk)
     local fn=(cfg.FileName or "ZeroUI_Key")..".txt"
     local vk="" local isURL=cfg.Key:find("http")~=nil
@@ -209,8 +200,7 @@ local function showKey(cfg,onOk)
     local ov=Instance.new("Frame") ov.Size=UDim2.new(1,0,1,0) ov.BackgroundColor3=Color3.fromRGB(2,2,8)
     ov.BackgroundTransparency=1 ov.BorderSizePixel=0 ov.Parent=g tw(ov,{BackgroundTransparency=0.25},0.5)
 
-    -- Particles
-    task.spawn(function() for i=1,20 do
+    task.spawn(function() for i=1,25 do
         local d=Instance.new("Frame") local sz=math.random(2,5)
         d.Size=UDim2.fromOffset(sz,sz) d.Position=UDim2.new(math.random()*0.95,0,math.random()*0.95,0)
         d.BackgroundColor3=T.Par d.BackgroundTransparency=math.random(65,90)/100 d.BorderSizePixel=0 d.ZIndex=2
@@ -249,7 +239,6 @@ local function showKey(cfg,onOk)
         task.wait(1.8)
     end end)
 
-    -- Image icon
     local ico=Instance.new("ImageLabel") ico.Size=UDim2.fromOffset(42,42)
     ico.Position=UDim2.new(0.5,0,0,18) ico.AnchorPoint=Vector2.new(0.5,0)
     ico.BackgroundTransparency=1 ico.Image=hubImageId ico.ZIndex=12 ico.Parent=cd cor(ico,8)
@@ -350,9 +339,8 @@ local function showKey(cfg,onOk)
     drag(cd,cd)
 end
 
--- ═══════ CREATE WINDOW ═══════
 function ZeroUI:Window(cfg)
-    cfg=cfg or {} cfg.Name=cfg.Name or "ZeroUI" cfg.Icon=cfg.Icon or"⚡"
+    cfg=cfg or {} cfg.Name=cfg.Name or "ZeroUI" cfg.Icon=cfg.Icon or "⚡"
     cfg.ToggleKey=cfg.ToggleKey or Enum.KeyCode.RightShift
 
     local W={} local tabs={} local pages={} local aTab=nil local vis=true local built=false local fpsC=nil
@@ -365,7 +353,6 @@ function ZeroUI:Window(cfg)
         gui.ZIndexBehavior=Enum.ZIndexBehavior.Sibling gui.IgnoreGuiInset=true gui.DisplayOrder=100
         gui.Parent=CoreGui W._gui=gui
 
-        -- BG particles
         task.spawn(function() for i=1,12 do
             local p=Instance.new("Frame") local sz=math.random(2,4)
             p.Size=UDim2.fromOffset(sz,sz) p.Position=UDim2.new(math.random()*0.95,0,math.random()*0.95,0)
@@ -378,10 +365,8 @@ function ZeroUI:Window(cfg)
         end end)
 
         fpsC=FPS:Create(gui)
-
         local mW,mH=S.WinW,S.WinH
 
-        -- ═══ MINI BOX (shown when closed) ═══
         local miniBox=Instance.new("ImageButton")
         miniBox.Name="MiniBox"
         miniBox.Size=UDim2.fromOffset(S.BoxSize,S.BoxSize)
@@ -399,7 +384,6 @@ function ZeroUI:Window(cfg)
         cor(miniBox,12)
         stk(miniBox,T.BoxBor,1.5,0.2)
 
-        -- Glow pulse on mini box
         task.spawn(function() while miniBox and miniBox.Parent do
             tw(miniBox,{ImageTransparency=0.1},1.5,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut) task.wait(1.5)
             tw(miniBox,{ImageTransparency=0},1.5,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut) task.wait(1.5)
@@ -407,14 +391,12 @@ function ZeroUI:Window(cfg)
 
         drag(miniBox,miniBox)
 
-        -- ═══ MAIN FRAME ═══
         local mf=Instance.new("Frame") mf.Name="Main"
         mf.Size=UDim2.fromOffset(mW,mH) mf.Position=UDim2.new(0.5,0,0.5,0)
         mf.AnchorPoint=Vector2.new(0.5,0.5) mf.BackgroundColor3=T.WinBG
         mf.BackgroundTransparency=T.WinT mf.BorderSizePixel=0 mf.ClipsDescendants=true
         mf.ZIndex=5 mf.Parent=gui cor(mf,12) stk(mf,T.Bor,1,0.25) W._main=mf
 
-        -- ═══ TOP BAR ═══
         local tb=Instance.new("Frame") tb.Name="Top" tb.Size=UDim2.new(1,0,0,S.Top)
         tb.BackgroundColor3=T.TopBG tb.BackgroundTransparency=T.TopT tb.BorderSizePixel=0
         tb.ZIndex=8 tb.Parent=mf
@@ -423,7 +405,6 @@ function ZeroUI:Window(cfg)
         tbb.AnchorPoint=Vector2.new(0,1) tbb.BackgroundColor3=T.Div tbb.BackgroundTransparency=T.DivT
         tbb.BorderSizePixel=0 tbb.ZIndex=9 tbb.Parent=tb
 
-        -- Hub image in topbar
         local tbImg=Instance.new("ImageLabel") tbImg.Size=UDim2.fromOffset(S.Top-10,S.Top-10)
         tbImg.Position=UDim2.new(0,8,0.5,0) tbImg.AnchorPoint=Vector2.new(0,0.5)
         tbImg.BackgroundTransparency=1 tbImg.Image=hubImageId tbImg.ZIndex=10 tbImg.Parent=tb cor(tbImg,6)
@@ -436,7 +417,6 @@ function ZeroUI:Window(cfg)
 
         local bs=Mobile and 32 or 26
 
-        -- X button → minimize to box
         local xb=Instance.new("TextButton") xb.Size=UDim2.fromOffset(bs,bs)
         xb.Position=UDim2.new(1,-(bs+6),0.5,0) xb.AnchorPoint=Vector2.new(0,0.5)
         xb.BackgroundColor3=T.Err xb.BackgroundTransparency=0.85 xb.Text="✕"
@@ -446,7 +426,6 @@ function ZeroUI:Window(cfg)
         xb.MouseEnter:Connect(function() tw(xb,{BackgroundTransparency=0.25,TextColor3=T.Err},0.15) end)
         xb.MouseLeave:Connect(function() tw(xb,{BackgroundTransparency=0.85,TextColor3=T.Txt2},0.15) end)
 
-        -- Minimize button
         local mb=Instance.new("TextButton") mb.Size=UDim2.fromOffset(bs,bs)
         mb.Position=UDim2.new(1,-(bs*2+12),0.5,0) mb.AnchorPoint=Vector2.new(0,0.5)
         mb.BackgroundColor3=T.Wrn mb.BackgroundTransparency=0.85 mb.Text="—"
@@ -465,10 +444,8 @@ function ZeroUI:Window(cfg)
 
         drag(tb,mf)
 
-        -- X click → shrink to mini box
         xb.MouseButton1Click:Connect(function()
             vis=false
-            -- Shrink animation
             tw(mf,{Size=UDim2.fromOffset(S.BoxSize,S.BoxSize),BackgroundTransparency=1},0.35,Enum.EasingStyle.Back,Enum.EasingDirection.In)
             task.delay(0.35,function()
                 mf.Visible=false
@@ -479,7 +456,6 @@ function ZeroUI:Window(cfg)
             end)
         end)
 
-        -- Click mini box → restore window
         miniBox.MouseButton1Click:Connect(function()
             vis=true
             tw(miniBox,{Size=UDim2.fromOffset(S.BoxSize-10,S.BoxSize-10),BackgroundTransparency=0.8},0.2,Enum.EasingStyle.Back,Enum.EasingDirection.In)
@@ -493,7 +469,6 @@ function ZeroUI:Window(cfg)
             end)
         end)
 
-        -- ═══ SIDEBAR ═══
         local sb=Instance.new("Frame") sb.Name="Side" sb.Size=UDim2.new(0,S.Side,1,-S.Top)
         sb.Position=UDim2.new(0,0,0,S.Top) sb.BackgroundColor3=T.SideBG sb.BackgroundTransparency=T.SideT
         sb.BorderSizePixel=0 sb.ZIndex=7 sb.Parent=mf
@@ -506,23 +481,19 @@ function ZeroUI:Window(cfg)
         ss.BackgroundTransparency=1 ss.ScrollBarThickness=0 ss.BorderSizePixel=0 ss.ZIndex=8 ss.Parent=sb
         local sl=ll(ss,3) ac(ss,sl)
 
-        -- ═══ CONTENT ═══
         local ca=Instance.new("Frame") ca.Name="Content" ca.Size=UDim2.new(1,-S.Side,1,-S.Top)
         ca.Position=UDim2.new(0,S.Side,0,S.Top) ca.BackgroundTransparency=1 ca.BorderSizePixel=0
         ca.ZIndex=6 ca.ClipsDescendants=true ca.Parent=mf
 
-        -- Intro
         mf.Size=UDim2.fromOffset(mW*0.92,mH*0.92) mf.BackgroundTransparency=0.5
         task.spawn(function() task.wait(0.1)
             tw(mf,{Size=UDim2.fromOffset(mW,mH),BackgroundTransparency=T.WinT},0.45,Enum.EasingStyle.Back)
         end)
 
-        -- Toggle key
         UIS.InputBegan:Connect(function(i,g) if g then return end
             if i.KeyCode==cfg.ToggleKey then W:Toggle() end
         end)
 
-        -- Tab switch
         local function swTab(td)
             if aTab==td then return end aTab=td
             for _,pg in pairs(pages) do pg.Visible=false end
@@ -539,9 +510,8 @@ function ZeroUI:Window(cfg)
             if td.Ind then tw(td.Ind,{BackgroundTransparency=0},0.15) end
         end
 
-        -- ═══ TAB BUILDER ═══
         function W:Tab(tc)
-            tc=tc or {} tc.Name=tc.Name or"Tab" tc.Icon=tc.Icon or"📁"
+            tc=tc or {} tc.Name=tc.Name or "Tab" tc.Icon=tc.Icon or "📁"
             local tid=#tabs+1 local th=Mobile and 42 or 36
 
             local tbtn=Instance.new("TextButton") tbtn.Size=UDim2.new(1,0,0,th)
@@ -578,7 +548,6 @@ function ZeroUI:Window(cfg)
             tbtn.MouseButton1Click:Connect(function() swTab(td) end)
             if tid==1 then task.defer(function() swTab(td) end) end
 
-            -- ═══ ELEMENTS ═══
             local TA={} local eo=0
             local function no() eo=eo+1 return eo end
 
@@ -602,11 +571,11 @@ function ZeroUI:Window(cfg)
             end
 
             function TA:Button(c2)
-                c2=c2 or{} local ct=me()
+                c2=c2 or {} local ct=me()
                 local bt=Instance.new("TextButton") bt.Size=UDim2.new(1,0,1,0) bt.BackgroundTransparency=1
                 bt.Text="" bt.ZIndex=9 bt.AutoButtonColor=false bt.ClipsDescendants=true bt.Parent=ct
                 local lb=Instance.new("TextLabel") lb.Size=UDim2.new(1,-14,1,0) lb.Position=UDim2.fromOffset(10,0)
-                lb.BackgroundTransparency=1 lb.Text=c2.Name or"Btn" lb.TextColor3=T.Txt lb.TextSize=S.F2
+                lb.BackgroundTransparency=1 lb.Text=c2.Name or "Btn" lb.TextColor3=T.Txt lb.TextSize=S.F2
                 lb.Font=Enum.Font.GothamBold lb.TextXAlignment=Enum.TextXAlignment.Left lb.ZIndex=10 lb.Parent=bt
                 local ar=Instance.new("TextLabel") ar.Size=UDim2.fromOffset(16,16)
                 ar.Position=UDim2.new(1,-22,0.5,0) ar.AnchorPoint=Vector2.new(0,0.5)
@@ -621,84 +590,70 @@ function ZeroUI:Window(cfg)
             end
 
             function TA:Toggle(c2)
-                c2=c2 or{} local tg=c2.Default or false local ct=me()
+                c2=c2 or {} local tg=c2.Default or false local ct=me()
                 local lb=Instance.new("TextLabel") lb.Size=UDim2.new(1,-(S.TW+20),1,0)
-                lb.Position=UDim2.fromOffset(10,0) lb.BackgroundTransparency=1 lb.Text=c2.Name or"Toggle"
+                lb.Position=UDim2.fromOffset(10,0) lb.BackgroundTransparency=1 lb.Text=c2.Name or "Toggle"
                 lb.TextColor3=T.Txt lb.TextSize=S.F2 lb.Font=Enum.Font.GothamBold
                 lb.TextXAlignment=Enum.TextXAlignment.Left lb.ZIndex=10 lb.Parent=ct
-
                 local tr=Instance.new("Frame") tr.Size=UDim2.fromOffset(S.TW,S.TH)
                 tr.Position=UDim2.new(1,-(S.TW+8),0.5,0) tr.AnchorPoint=Vector2.new(0,0.5)
                 tr.BackgroundColor3=tg and T.Acc or T.TOff tr.BorderSizePixel=0 tr.ZIndex=10 tr.Parent=ct
                 cor(tr,S.TH/2)
-
                 local kn=Instance.new("Frame") kn.Size=UDim2.fromOffset(S.KS,S.KS)
                 kn.Position=tg and UDim2.new(1,-(S.KS+3),0.5,0) or UDim2.new(0,3,0.5,0)
                 kn.AnchorPoint=Vector2.new(0,0.5) kn.BackgroundColor3=T.TKnob kn.BorderSizePixel=0
                 kn.ZIndex=11 kn.Parent=tr cor(kn,S.KS/2)
-
                 local function up(v,f)
                     tg=v tw(tr,{BackgroundColor3=v and T.Acc or T.TOff},0.2)
                     tw(kn,{Position=v and UDim2.new(1,-(S.KS+3),0.5,0) or UDim2.new(0,3,0.5,0)},0.2,Enum.EasingStyle.Back)
                     if c2.Flag then ZeroUI.Flags[c2.Flag]=v end
                     if f~=false and c2.Callback then c2.Callback(v) end
                 end
-
                 local cb=Instance.new("TextButton") cb.Size=UDim2.new(1,0,1,0) cb.BackgroundTransparency=1
                 cb.Text="" cb.ZIndex=12 cb.Parent=ct
                 cb.MouseButton1Click:Connect(function() up(not tg) end)
                 if c2.Flag then ZeroUI.Flags[c2.Flag]=tg end
                 if tg and c2.Callback then c2.Callback(true) end
-
                 local A={} function A:Set(v) up(v) end function A:Get() return tg end
                 function A:Destroy() ct:Destroy() end return A
             end
 
             function TA:Slider(c2)
-                c2=c2 or{} local mn=c2.Min or 0 local mx=c2.Max or 100
+                c2=c2 or {} local mn=c2.Min or 0 local mx=c2.Max or 100
                 local val=math.clamp(c2.Default or mn,mn,mx) local inc=c2.Increment or 1
                 local sh=S.Elem+20 local ct=me(sh)
-
                 local lb=Instance.new("TextLabel") lb.Size=UDim2.new(0.55,-10,0,S.Elem-4)
-                lb.Position=UDim2.fromOffset(10,0) lb.BackgroundTransparency=1 lb.Text=c2.Name or"Slider"
+                lb.Position=UDim2.fromOffset(10,0) lb.BackgroundTransparency=1 lb.Text=c2.Name or "Slider"
                 lb.TextColor3=T.Txt lb.TextSize=S.F2 lb.Font=Enum.Font.GothamBold
                 lb.TextXAlignment=Enum.TextXAlignment.Left lb.ZIndex=10 lb.Parent=ct
-
                 local vl=Instance.new("TextLabel") vl.Size=UDim2.new(0.4,-10,0,S.Elem-4)
                 vl.Position=UDim2.new(0.55,0,0,0) vl.BackgroundTransparency=1
-                vl.Text=tostring(val)..(c2.Suffix or"") vl.TextColor3=T.Acc vl.TextSize=S.F2
+                vl.Text=tostring(val)..(c2.Suffix or "") vl.TextColor3=T.Acc vl.TextSize=S.F2
                 vl.Font=Enum.Font.GothamBold vl.TextXAlignment=Enum.TextXAlignment.Right vl.ZIndex=10 vl.Parent=ct
-
                 local tf=Instance.new("Frame") tf.Size=UDim2.new(1,-20,0,Mobile and 8 or 6)
                 tf.Position=UDim2.new(0.5,0,1,-(Mobile and 14 or 12)) tf.AnchorPoint=Vector2.new(0.5,0)
                 tf.BackgroundColor3=T.STrk tf.BorderSizePixel=0 tf.ZIndex=10 tf.Parent=ct cor(tf,4)
-
                 local pc=(val-mn)/math.max(mx-mn,1)
                 local fl=Instance.new("Frame") fl.Size=UDim2.new(pc,0,1,0) fl.BackgroundColor3=T.Acc
                 fl.BorderSizePixel=0 fl.ZIndex=11 fl.Parent=tf cor(fl,4)
-
                 local ks2=Mobile and 18 or 14
                 local sk=Instance.new("Frame") sk.Size=UDim2.fromOffset(ks2,ks2) sk.Position=UDim2.new(pc,0,0.5,0)
                 sk.AnchorPoint=Vector2.new(0.5,0.5) sk.BackgroundColor3=T.TKnob sk.BorderSizePixel=0
                 sk.ZIndex=12 sk.Parent=tf cor(sk,ks2/2) stk(sk,T.Acc,2,0.2)
-
                 local function sv(v,f)
                     v=math.clamp(v,mn,mx) v=math.floor(v/inc+0.5)*inc val=v
                     local p2=(v-mn)/math.max(mx-mn,1)
                     tw(fl,{Size=UDim2.new(p2,0,1,0)},0.06,Enum.EasingStyle.Linear)
                     tw(sk,{Position=UDim2.new(p2,0,0.5,0)},0.06,Enum.EasingStyle.Linear)
-                    vl.Text=tostring(v)..(c2.Suffix or"")
+                    vl.Text=tostring(v)..(c2.Suffix or "")
                     if c2.Flag then ZeroUI.Flags[c2.Flag]=v end
                     if f~=false and c2.Callback then c2.Callback(v) end
                 end
-
                 local sld=false
                 local ib2=Instance.new("TextButton") ib2.Size=UDim2.new(1,0,1,10) ib2.Position=UDim2.new(0,0,0,-5)
                 ib2.BackgroundTransparency=1 ib2.Text="" ib2.ZIndex=13 ib2.Parent=tf
-
                 local function hi(i) local p2=math.clamp((i.Position.X-tf.AbsolutePosition.X)/tf.AbsoluteSize.X,0,1)
                     sv(mn+(mx-mn)*p2) end
-
                 ib2.InputBegan:Connect(function(i)
                     if i.UserInputType==Enum.UserInputType.MouseButton1 or i.UserInputType==Enum.UserInputType.Touch then
                         sld=true hi(i) end end)
@@ -708,43 +663,35 @@ function ZeroUI:Window(cfg)
                 UIS.InputChanged:Connect(function(i)
                     if sld and(i.UserInputType==Enum.UserInputType.MouseMovement or i.UserInputType==Enum.UserInputType.Touch)then
                         hi(i) end end)
-
                 if c2.Flag then ZeroUI.Flags[c2.Flag]=val end
                 local A={} function A:Set(v) sv(v) end function A:Get() return val end
                 function A:Destroy() ct:Destroy() end return A
             end
 
             function TA:Dropdown(c2)
-                c2=c2 or{} local opts=c2.Options or{} local sel=c2.Default or(opts[1]or"")
+                c2=c2 or {} local opts=c2.Options or {} local sel=c2.Default or (opts[1] or "")
                 local op=false local obs={}
                 local hh=S.Elem local oh=Mobile and 36 or 30 local mv=math.min(#opts,5) local dh=oh*mv+4
-
                 local ct=Instance.new("Frame") ct.Size=UDim2.new(1,0,0,hh) ct.BackgroundColor3=T.ElemBG
                 ct.BackgroundTransparency=T.ElemT ct.BorderSizePixel=0 ct.ZIndex=8 ct.ClipsDescendants=true
                 ct.LayoutOrder=no() ct.Parent=pg cor(ct,7) stk(ct,T.Bor,1,0.5)
-
                 local hb=Instance.new("TextButton") hb.Size=UDim2.new(1,0,0,hh) hb.BackgroundTransparency=1
                 hb.Text="" hb.ZIndex=9 hb.Parent=ct
-
                 local dl=Instance.new("TextLabel") dl.Size=UDim2.new(0.48,-10,1,0) dl.Position=UDim2.fromOffset(10,0)
-                dl.BackgroundTransparency=1 dl.Text=c2.Name or"Drop" dl.TextColor3=T.Txt dl.TextSize=S.F2
+                dl.BackgroundTransparency=1 dl.Text=c2.Name or "Drop" dl.TextColor3=T.Txt dl.TextSize=S.F2
                 dl.Font=Enum.Font.GothamBold dl.TextXAlignment=Enum.TextXAlignment.Left dl.ZIndex=10 dl.Parent=hb
-
                 local dv=Instance.new("TextLabel") dv.Size=UDim2.new(0.42,-10,1,0) dv.Position=UDim2.new(0.48,0,0,0)
                 dv.BackgroundTransparency=1 dv.Text=tostring(sel) dv.TextColor3=T.Acc dv.TextSize=S.F2
                 dv.Font=Enum.Font.GothamMedium dv.TextXAlignment=Enum.TextXAlignment.Right
                 dv.TextTruncate=Enum.TextTruncate.AtEnd dv.ZIndex=10 dv.Parent=hb
-
                 local da=Instance.new("TextLabel") da.Size=UDim2.fromOffset(16,16)
                 da.Position=UDim2.new(1,-18,0.5,0) da.AnchorPoint=Vector2.new(0,0.5)
                 da.BackgroundTransparency=1 da.Text="▾" da.TextColor3=T.Txt3 da.TextSize=14
                 da.Font=Enum.Font.GothamBold da.ZIndex=10 da.Parent=hb
-
                 local os2=Instance.new("ScrollingFrame") os2.Size=UDim2.new(1,-10,1,-(hh+4))
                 os2.Position=UDim2.new(0,5,0,hh+2) os2.BackgroundTransparency=1 os2.ScrollBarThickness=2
                 os2.BorderSizePixel=0 os2.ZIndex=10 os2.Visible=false os2.Parent=ct
                 local ol=ll(os2,2) ac(os2,ol)
-
                 local function bo()
                     for _,b in ipairs(obs) do b:Destroy() end obs={}
                     for i,o in ipairs(opts) do
@@ -768,7 +715,6 @@ function ZeroUI:Window(cfg)
                         table.insert(obs,ob)
                     end
                 end bo()
-
                 hb.MouseButton1Click:Connect(function()
                     op=not op
                     if op then os2.Visible=true
@@ -776,7 +722,6 @@ function ZeroUI:Window(cfg)
                     else tw(ct,{Size=UDim2.new(1,0,0,hh)},0.2,Enum.EasingStyle.Back,Enum.EasingDirection.In)
                         tw(da,{Rotation=0},0.15) task.delay(0.2,function() os2.Visible=false end) end
                 end)
-
                 if c2.Flag then ZeroUI.Flags[c2.Flag]=sel end
                 local A={} function A:Set(v) sel=v dv.Text=tostring(v) if c2.Flag then ZeroUI.Flags[c2.Flag]=v end
                     if c2.Callback then c2.Callback(v) end bo() end
@@ -785,46 +730,40 @@ function ZeroUI:Window(cfg)
             end
 
             function TA:Input(c2)
-                c2=c2 or{} local ct=me(S.Elem+8)
+                c2=c2 or {} local ct=me(S.Elem+8)
                 local il=Instance.new("TextLabel") il.Size=UDim2.new(0.35,-10,1,0) il.Position=UDim2.fromOffset(10,0)
-                il.BackgroundTransparency=1 il.Text=c2.Name or"Input" il.TextColor3=T.Txt il.TextSize=S.F2
+                il.BackgroundTransparency=1 il.Text=c2.Name or "Input" il.TextColor3=T.Txt il.TextSize=S.F2
                 il.Font=Enum.Font.GothamBold il.TextXAlignment=Enum.TextXAlignment.Left il.ZIndex=10 il.Parent=ct
-
                 local ifr=Instance.new("Frame") ifr.Size=UDim2.new(0.6,-10,0,Mobile and 32 or 26)
                 ifr.Position=UDim2.new(1,-6,0.5,0) ifr.AnchorPoint=Vector2.new(1,0.5)
                 ifr.BackgroundColor3=T.InBG ifr.BorderSizePixel=0 ifr.ZIndex=10 ifr.Parent=ct
                 cor(ifr,5) local is2=stk(ifr,T.InBor,1,0.4)
-
                 local ib3=Instance.new("TextBox") ib3.Size=UDim2.new(1,-10,1,0) ib3.Position=UDim2.fromOffset(5,0)
-                ib3.BackgroundTransparency=1 ib3.Text=c2.Default or"" ib3.PlaceholderText=c2.Placeholder or"..."
+                ib3.BackgroundTransparency=1 ib3.Text=c2.Default or "" ib3.PlaceholderText=c2.Placeholder or "..."
                 ib3.PlaceholderColor3=T.Txt3 ib3.TextColor3=T.Txt ib3.TextSize=S.F2
                 ib3.Font=Enum.Font.GothamMedium ib3.TextXAlignment=Enum.TextXAlignment.Left
                 ib3.ClearTextOnFocus=c2.ClearOnFocus or false ib3.ZIndex=11 ib3.Parent=ifr
-
                 ib3.Focused:Connect(function() tw(is2,{Color=T.Acc,Transparency=0},0.15) end)
                 ib3.FocusLost:Connect(function()
                     tw(is2,{Color=T.InBor,Transparency=0.4},0.15)
                     if c2.Flag then ZeroUI.Flags[c2.Flag]=ib3.Text end
                     if c2.Callback then c2.Callback(ib3.Text) end
                 end)
-
                 local A={} function A:Set(v) ib3.Text=v end function A:Get() return ib3.Text end
                 function A:Destroy() ct:Destroy() end return A
             end
 
             function TA:Keybind(c2)
-                c2=c2 or{} local ck=c2.Default or Enum.KeyCode.E local li=false local ct=me()
+                c2=c2 or {} local ck=c2.Default or Enum.KeyCode.E local li=false local ct=me()
                 local kl=Instance.new("TextLabel") kl.Size=UDim2.new(0.6,-10,1,0) kl.Position=UDim2.fromOffset(10,0)
-                kl.BackgroundTransparency=1 kl.Text=c2.Name or"Key" kl.TextColor3=T.Txt kl.TextSize=S.F2
+                kl.BackgroundTransparency=1 kl.Text=c2.Name or "Key" kl.TextColor3=T.Txt kl.TextSize=S.F2
                 kl.Font=Enum.Font.GothamBold kl.TextXAlignment=Enum.TextXAlignment.Left kl.ZIndex=10 kl.Parent=ct
-
                 local kbw=Mobile and 62 or 52
                 local kb=Instance.new("TextButton") kb.Size=UDim2.fromOffset(kbw,Mobile and 28 or 24)
                 kb.Position=UDim2.new(1,-(kbw+8),0.5,0) kb.AnchorPoint=Vector2.new(0,0.5)
                 kb.BackgroundColor3=T.InBG kb.Text=ck.Name kb.TextColor3=T.Acc kb.TextSize=S.F3
                 kb.Font=Enum.Font.GothamBold kb.AutoButtonColor=false kb.BorderSizePixel=0
                 kb.ZIndex=10 kb.Parent=ct cor(kb,5) stk(kb,T.InBor,1,0.4)
-
                 kb.MouseButton1Click:Connect(function()
                     li=true kb.Text="..." tw(kb,{BackgroundColor3=T.Acc,TextColor3=T.TxtW},0.15) end)
                 UIS.InputBegan:Connect(function(i,g)
@@ -840,10 +779,10 @@ function ZeroUI:Window(cfg)
             end
 
             function TA:Paragraph(c2)
-                c2=c2 or{} local cn=c2.Content or"" local ls=#cn/30+1
+                c2=c2 or {} local cn=c2.Content or "" local ls=#cn/30+1
                 local ph=math.max(S.Elem+8,26+ls*14) local ct=me(ph)
                 local pt=Instance.new("TextLabel") pt.Size=UDim2.new(1,-16,0,20) pt.Position=UDim2.fromOffset(8,3)
-                pt.BackgroundTransparency=1 pt.Text=c2.Title or"Info" pt.TextColor3=T.Txt pt.TextSize=S.F2
+                pt.BackgroundTransparency=1 pt.Text=c2.Title or "Info" pt.TextColor3=T.Txt pt.TextSize=S.F2
                 pt.Font=Enum.Font.GothamBold pt.TextXAlignment=Enum.TextXAlignment.Left pt.ZIndex=10 pt.Parent=ct
                 local pc2=Instance.new("TextLabel") pc2.Size=UDim2.new(1,-16,1,-24) pc2.Position=UDim2.fromOffset(8,23)
                 pc2.BackgroundTransparency=1 pc2.Text=cn pc2.TextColor3=T.Txt2 pc2.TextSize=S.F3
@@ -854,10 +793,10 @@ function ZeroUI:Window(cfg)
             end
 
             function TA:Label(c2)
-                c2=c2 or{} local ct=Instance.new("Frame") ct.Size=UDim2.new(1,0,0,20)
+                c2=c2 or {} local ct=Instance.new("Frame") ct.Size=UDim2.new(1,0,0,20)
                 ct.BackgroundTransparency=1 ct.ZIndex=8 ct.LayoutOrder=no() ct.Parent=pg
                 local l2=Instance.new("TextLabel") l2.Size=UDim2.new(1,-12,1,0) l2.Position=UDim2.fromOffset(6,0)
-                l2.BackgroundTransparency=1 l2.Text=c2.Text or"" l2.TextColor3=T.Txt2 l2.TextSize=S.F2
+                l2.BackgroundTransparency=1 l2.Text=c2.Text or "" l2.TextColor3=T.Txt2 l2.TextSize=S.F2
                 l2.Font=Enum.Font.GothamMedium l2.TextXAlignment=Enum.TextXAlignment.Left l2.ZIndex=9 l2.Parent=ct
                 local A={} function A:Set(t) l2.Text=t end function A:Destroy() ct:Destroy() end return A
             end
@@ -865,35 +804,28 @@ function ZeroUI:Window(cfg)
             return TA
         end
 
-        -- ═══ NOTIFY ═══
         function W:Notify(nc)
-            nc=nc or{} local ti=nc.Title or"Notice" local cn=nc.Content or""
-            local du=nc.Duration or 4 local ty=nc.Type or"info"
-            local ac2=({success=T.Suc,error=T.Err,warning=T.Wrn,info=T.Inf})[ty:lower()]or T.Inf
+            nc=nc or {} local ti=nc.Title or "Notice" local cn=nc.Content or ""
+            local du=nc.Duration or 4 local ty=nc.Type or "info"
+            local ac2=({success=T.Suc,error=T.Err,warning=T.Wrn,info=T.Inf})[ty:lower()] or T.Inf
             local nw=Mobile and math.clamp(VP.X*0.82,240,340) or 300
             local nh=Mobile and 72 or 64
-
             local nf=Instance.new("Frame") nf.Size=UDim2.fromOffset(nw,nh)
             nf.Position=UDim2.new(1,nw+16,1,-16) nf.AnchorPoint=Vector2.new(1,1)
             nf.BackgroundColor3=T.NBG nf.BackgroundTransparency=T.NT nf.BorderSizePixel=0
             nf.ZIndex=50 nf.Parent=gui cor(nf,10) stk(nf,ac2,1.2,0.25)
-
             local nb=Instance.new("Frame") nb.Size=UDim2.new(0,3,0.65,0) nb.Position=UDim2.new(0,7,0.175,0)
             nb.BackgroundColor3=ac2 nb.BorderSizePixel=0 nb.ZIndex=51 nb.Parent=nf cor(nb,2)
-
             local nt=Instance.new("TextLabel") nt.Size=UDim2.new(1,-24,0,20) nt.Position=UDim2.fromOffset(16,6)
             nt.BackgroundTransparency=1 nt.Text=ti nt.TextColor3=T.Txt nt.TextSize=S.F2
             nt.Font=Enum.Font.GothamBold nt.TextXAlignment=Enum.TextXAlignment.Left
             nt.TextTruncate=Enum.TextTruncate.AtEnd nt.ZIndex=51 nt.Parent=nf
-
             local nc2=Instance.new("TextLabel") nc2.Size=UDim2.new(1,-24,1,-28) nc2.Position=UDim2.fromOffset(16,26)
             nc2.BackgroundTransparency=1 nc2.Text=cn nc2.TextColor3=T.Txt2 nc2.TextSize=S.F3
             nc2.Font=Enum.Font.GothamMedium nc2.TextXAlignment=Enum.TextXAlignment.Left
             nc2.TextYAlignment=Enum.TextYAlignment.Top nc2.TextWrapped=true nc2.ZIndex=51 nc2.Parent=nf
-
             local np=Instance.new("Frame") np.Size=UDim2.new(1,0,0,2) np.Position=UDim2.new(0,0,1,-2)
             np.BackgroundColor3=ac2 np.BackgroundTransparency=0.3 np.BorderSizePixel=0 np.ZIndex=51 np.Parent=nf
-
             tw(nf,{Position=UDim2.new(1,-10,1,-16)},0.35,Enum.EasingStyle.Back)
             tw(np,{Size=UDim2.new(0,0,0,2)},du,Enum.EasingStyle.Linear)
             task.delay(du,function()
@@ -934,6 +866,4 @@ end
 function ZeroUI:GetFlag(f) return self.Flags[f] end
 function ZeroUI:SetFlag(f,v) self.Flags[f]=v end
 
-print("[ZeroUI] v"..ZeroUI.Version.." loaded")
 return ZeroUI
---No Use Copyright ©️ Join discord and dm to get edit permission 
